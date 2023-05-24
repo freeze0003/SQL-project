@@ -8,7 +8,7 @@ CREATE OR REPLACE TABLE t_milan_jancalek_payroll (
 		calculation_code,
 		value_type_code,
 		payroll_year,
-		ROUND(AVG(value),0) AS avg_values_per_year
+		ROUND(AVG(value), 0) AS avg_values_per_year
 	FROM czechia_payroll AS cp
 	WHERE value_type_code = 5958 AND calculation_code = 200
 	GROUP BY 
@@ -24,7 +24,7 @@ CREATE OR REPLACE TABLE t_milan_jancalek_price(
 		YEAR(date_from) AS year_of_entry,
 		ROUND(AVG(value),2) AS yearly_avg_value
 	FROM czechia_price cp
-	WHERE region_code  IS NULL
+	WHERE region_code IS NULL
 	GROUP BY year_of_entry,
 		category_code
 	ORDER BY
@@ -113,8 +113,8 @@ SELECT
 	SUM(v_avg_sum.price_year_avg) AS avg_bread_milk,
 	v_avg_sum.payroll_year_avg AS monthly_payroll_avg,
 	v_avg_sum.payroll_year_sum,
-	ROUND(v_avg_sum.payroll_year_avg/SUM(v_avg_sum.price_year_avg),0) AS potential_number_of_items_per_year,
-	ROUND(v_avg_sum.payroll_year_sum/SUM(v_avg_sum.price_year_avg),0) AS potential_number_of_items_per_year
+	ROUND(v_avg_sum.payroll_year_avg / SUM(v_avg_sum.price_year_avg), 0) AS potential_number_of_items_per_year,
+	ROUND(v_avg_sum.payroll_year_sum / SUM(v_avg_sum.price_year_avg), 0) AS potential_number_of_items_per_year
 FROM v_avg_sum AS v_avg_sum
 JOIN czechia_price_category AS p_cat
 	ON p_cat.code = v_avg_sum.price_cat
